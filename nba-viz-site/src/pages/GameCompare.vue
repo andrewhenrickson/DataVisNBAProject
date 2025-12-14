@@ -2,7 +2,28 @@
   <q-page padding>
     <div class="q-pa-md">
       <h3 class="text-h3 text-center q-mb-lg">NBA Team Game Statistics Comparison</h3>
-      
+       <template>
+  <div class="row q-col-gutter-md q-mb-lg">
+    <div class="col-12 col-md-4">
+      <q-select
+        v-model="selectedTeam"
+        :options="teamslist"
+        label="Select Team"
+        outlined
+      >
+        <template v-slot:prepend>
+          <q-icon name="info" color="primary">
+            <q-tooltip max-width="300px">
+              Select an NBA team by abbreviation. Full names will appear in the dropdown.
+            </q-tooltip>
+          </q-icon>
+        </template>
+      </q-select>
+    </div>
+  </div>
+</template>
+
+
       <div class="row q-col-gutter-md q-mb-lg">
         <div class="col-12 col-md-4">
           <q-select
@@ -47,6 +68,43 @@ const teams = [
   "OKC", "ORL", "PHI", "PHX", "POR", "SAC", "SAS", "UTA", "TOR", "WAS"
 ]
 
+const teamNames = {
+  'ATL': 'Atlanta Hawks',
+  'BKN': 'Brooklyn Nets',
+  'BOS': 'Boston Celtics',
+  'CHA': 'Charlotte Hornets',
+  'CHI': 'Chicago Bulls',
+  'CLE': 'Cleveland Cavaliers',
+  'DAL': 'Dallas Mavericks',
+  'DEN': 'Denver Nuggets',
+  'DET': 'Detroit Pistons',
+  'GSW': 'Golden State Warriors',
+  'HOU': 'Houston Rockets',
+  'IND': 'Indiana Pacers',
+  'LAL': 'Los Angeles Lakers',
+  'LAC': 'Los Angeles Clippers',
+  'MEM': 'Memphis Grizzlies',
+  'MIA': 'Miami Heat',
+  'MIL': 'Milwaukee Bucks',
+  'MIN': 'Minnesota Timberwolves',
+  'NOP': 'New Orleans Pelicans',
+  'NYK': 'New York Knicks',
+  'OKC': 'Oklahoma City Thunder',
+  'ORL': 'Orlando Magic',
+  'PHI': 'Philadelphia 76ers',
+  'PHX': 'Phoenix Suns',
+  'POR': 'Portland Trail Blazers',
+  'SAC': 'Sacramento Kings',
+  'SAS': 'San Antonio Spurs',
+  'UTA': 'Utah Jazz',
+  'TOR': 'Toronto Raptors',
+  'WAS': 'Washington Wizards'
+}
+
+const teamslist = Object.keys(teamNames).map(abbr => ({
+  label: `${abbr} - ${teamNames[abbr]}`,
+  value: abbr
+}))
 const selectedTeam = ref(null)
 const selectedGame = ref(null)
 const gameOptions = ref([])

@@ -8,6 +8,19 @@
           class='title'
           label='NBA Visualizations'
         />
+        <div class="row items-center">
+          <img 
+            src="/viz/league/hd-nba-vertical-logo-transparent-png-701751694774088jihanqehhf.png" 
+            alt="NBA Logo" 
+            style="width: 40px; height: 40px; margin-right: 10px;"
+          />
+        </div>
+        <q-btn
+          flat
+          label='Click here to learn about teams'
+          to="/help"
+          class="about"
+        />
         <q-btn 
           flat 
           label="Compare Statistics" 
