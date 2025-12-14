@@ -1,36 +1,67 @@
 <template>
   <q-page class="q-pa-md">
-    <div class="row items-center q-mb-sm">
-      <div class="text-h6">{{ title }}</div>
-      <q-space />
-      <q-btn outline icon="open_in_new" label="Open" :href="src" target="_blank" />
+    <div class="row q-col-gutter-md">
+      <div class="col-12">
+        <q-card>
+          <q-card-section>
+            <div class="row items-center">
+              <div class="col-12 col-md-6">
+                <div class="text-h6">NBA Team Statistics</div>
+              </div>
+              <div class="col-12 col-md-6">
+                <q-select
+                  v-model="selectedPlot"
+                  :options="plotOptions"
+                  label="Select Statistic"
+                  outlined
+                  dense
+                  emit-value
+                  map-options
+                />
+              </div>
+            </div>
+          </q-card-section>
+          <q-card-section class="viz-container q-pa-none">
+            <iframe
+              :src="selectedPlot"
+              :key="selectedPlot"
+            />
+          </q-card-section>
+        </q-card>
+      </div>
     </div>
-
-    <div class="text-caption q-mb-md">iframe src: {{ src }}</div>
-
-    <q-card>
-      <q-card-section class="q-pa-none">
-        <iframe
-          :src="src"
-          style="width: 100%; height: calc(100vh - 190px); border: 0;"
-        />
-      </q-card-section>
-    </q-card>
   </q-page>
 </template>
 
 <script setup>
-import { computed } from 'vue'
-import { useRoute } from 'vue-router'
+import { ref } from 'vue'
 
-const route = useRoute()
+const plotOptions = [
+  {
+    label: 'Two Point Shooting % over Season',
+    value: '/viz/league/team_comparison.html'
+  },
+  {
+    label: 'Three Point Shooting % over Season',
+    value: '/viz/league/team_comparison_three.html'
+  },
+  {
+    label: 'Free Throw % over Season',
+    value: '/viz/league/team_comparison_free_throw.html'
+  },
+  {
+    label: 'Total Rebounds over Season',
+    value: '/viz/league/team_comparison_total_rebounds.html'
+  }
+]
 
-const slugPath = computed(() => {
-  const s = route.params.slug
-  if (Array.isArray(s)) return s.join('/')
-  return String(s || '')
-})
-
-const src = computed(() => `/viz/${slugPath.value}.html`)
-const title = computed(() => slugPath.value.replaceAll('/', ' · '))
+const selectedPlot = ref(plotOptions[0].value)
 </script>
+
+<style scoped>
+.viz-container iframe {
+  width: 100%;
+  height: 650px;
+  border: 0;
+}
+</style>

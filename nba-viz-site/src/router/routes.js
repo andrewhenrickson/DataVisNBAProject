@@ -4,7 +4,10 @@ const routes = [
     component: () => import('layouts/MainLayout.vue'),
     children: [
   { path: '', component: () => import('pages/IndexPage.vue') },
-  { path: 'v/:slug(.*)*', component: () => import('pages/VizViewerPage.vue') }
+  { path: 'vizpage', component: () => import('pages/VizViewerPage.vue') },
+  { path: 'gamecompare', component: () => import('pages/GameCompare.vue') },
+  { path: 'about', component: () => import('pages/AboutPage.vue') }
+
 ]
 
   },

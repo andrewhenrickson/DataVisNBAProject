@@ -1,30 +1,69 @@
 <template>
   <q-layout view="hHh lpR fFf">
     <q-header elevated>
-      <q-toolbar>
-        <q-btn flat dense round icon="menu" aria-label="Menu" @click="leftDrawerOpen = !leftDrawerOpen" />
-        <q-toolbar-title>NBA Viz Site</q-toolbar-title>
+      <q-toolbar class="bg-primary">
+        <q-btn
+          flat
+          to="/"
+          class='title'
+          label='NBA Visualizations'
+        />
+        <q-btn 
+          flat 
+          label="Compare Statistics" 
+          to="/vizpage" 
+          class="compare"
+        />
+        <q-btn 
+          flat 
+          label="Game Comparison" 
+          to="/gamecompare" 
+          class="comparestat"
+        />
+        <q-btn
+          flat 
+          label="About" 
+          to="/about" 
+          class="about"
+        />
       </q-toolbar>
     </q-header>
-
-    <q-drawer v-model="leftDrawerOpen" show-if-above bordered>
-      <q-list>
-        <q-item-label header>League</q-item-label>
-
-        <q-item clickable v-ripple to="/v/league/trends">
-          <q-item-section avatar>
-            <q-icon name="insights" />
-          </q-item-section>
-          <q-item-section>Trends</q-item-section>
-        </q-item>
-      </q-list>
-    </q-drawer>
 
     <q-page-container>
       <router-view />
     </q-page-container>
   </q-layout>
 </template>
+
+<style scoped>
+.bg-primary {
+  background-color: #1e1e2f !important;
+}
+
+.title {
+  font-weight: bold;
+  font-size: 1.5rem;
+  color: white;
+}
+
+.about {
+  font-size: 1rem;
+  color: white;
+  margin-left: 1rem;
+}
+
+.compare {
+  font-size: 1rem;
+  color: white;
+  margin-left: auto;
+}
+
+.comparestat {
+  font-size: 1rem;
+  color: white;
+  margin-left: 1rem;
+}
+</style>
 
 <script setup>
 import { ref } from 'vue'
