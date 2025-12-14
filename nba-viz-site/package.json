@@ -10,7 +10,9 @@
     "test": "echo \"No test specified\" && exit 0",
     "dev": "quasar dev",
     "build": "quasar build",
-    "postinstall": "quasar prepare"
+    "postinstall": "quasar prepare",
+    "predeploy": "quasar build",
+    "deploy": "gh-pages -d dist/spa"
   },
   "dependencies": {
     "@quasar/extras": "^1.16.4",
@@ -21,6 +23,7 @@
   "devDependencies": {
     "@quasar/app-vite": "^2.1.0",
     "autoprefixer": "^10.4.2",
+    "gh-pages": "^6.3.0",
     "postcss": "^8.4.14"
   },
   "engines": {
