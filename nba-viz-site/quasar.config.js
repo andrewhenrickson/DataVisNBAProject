@@ -43,9 +43,8 @@ export default defineConfig((/* ctx */) => {
       vueRouterMode: 'hash', // available values: 'hash', 'history'
       
       // Add this for GitHub Pages deployment
-      publicPath: process.env.NODE_ENV === 'production' 
-        ? '/DataVisNBAProject/'  // Replace with YOUR repository name
-        : '/',
+     publicPath: '/',
+
       
       // vueRouterBase,
       // vueDevtools,
