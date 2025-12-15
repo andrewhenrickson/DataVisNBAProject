@@ -2,6 +2,9 @@
   <q-page padding>
     <div class="q-pa-md">
       <h3 class="text-h3 text-center q-mb-lg">NBA Team Game Statistics Comparison</h3>
+      <p class="text-center text-body1 q-mb-lg" style="color: #6b7280; max-width: 600px; margin-left: auto; margin-right: auto;">
+        Select any team and choose from their games to view a detailed breakdown of shooting statistics for that matchup. Compare your team's performance against their opponent across key metrics.
+      </p>
       <div class="row q-col-gutter-md q-mb-lg">
         <div class="col-12 col-md-4">
           <q-select

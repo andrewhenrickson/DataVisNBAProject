@@ -7,6 +7,12 @@
             <div class="row items-center">
               <div class="col-12 col-md-6">
                 <div class="text-h6">NBA Team Statistics</div>
+                <div class="text-body2 text-grey-7 q-mt-xs">
+                  These charts track team shooting efficiency and rebounding across the season.
+                  Look for sustained trends rather than single-game spikes, compare teams by
+                  toggling them on and off in the legend, and use the league-average view to see
+                  which teams consistently outperform the rest of the NBA over time.
+                </div>
               </div>
               <div class="col-12 col-md-6">
                 <q-select
