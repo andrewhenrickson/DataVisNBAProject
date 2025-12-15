@@ -2,7 +2,6 @@
   <q-page padding>
     <div class="q-pa-md">
       <h3 class="text-h3 text-center q-mb-lg">NBA Team Game Statistics Comparison</h3>
-      
       <div class="row q-col-gutter-md q-mb-lg">
         <div class="col-12 col-md-4">
           <q-select
@@ -47,6 +46,43 @@ const teams = [
   "OKC", "ORL", "PHI", "PHX", "POR", "SAC", "SAS", "UTA", "TOR", "WAS"
 ]
 
+const teamNames = {
+  'ATL': 'Atlanta Hawks',
+  'BKN': 'Brooklyn Nets',
+  'BOS': 'Boston Celtics',
+  'CHA': 'Charlotte Hornets',
+  'CHI': 'Chicago Bulls',
+  'CLE': 'Cleveland Cavaliers',
+  'DAL': 'Dallas Mavericks',
+  'DEN': 'Denver Nuggets',
+  'DET': 'Detroit Pistons',
+  'GSW': 'Golden State Warriors',
+  'HOU': 'Houston Rockets',
+  'IND': 'Indiana Pacers',
+  'LAL': 'Los Angeles Lakers',
+  'LAC': 'Los Angeles Clippers',
+  'MEM': 'Memphis Grizzlies',
+  'MIA': 'Miami Heat',
+  'MIL': 'Milwaukee Bucks',
+  'MIN': 'Minnesota Timberwolves',
+  'NOP': 'New Orleans Pelicans',
+  'NYK': 'New York Knicks',
+  'OKC': 'Oklahoma City Thunder',
+  'ORL': 'Orlando Magic',
+  'PHI': 'Philadelphia 76ers',
+  'PHX': 'Phoenix Suns',
+  'POR': 'Portland Trail Blazers',
+  'SAC': 'Sacramento Kings',
+  'SAS': 'San Antonio Spurs',
+  'UTA': 'Utah Jazz',
+  'TOR': 'Toronto Raptors',
+  'WAS': 'Washington Wizards'
+}
+
+const teamslist = Object.keys(teamNames).map(abbr => ({
+  label: `${abbr} - ${teamNames[abbr]}`,
+  value: abbr
+}))
 const selectedTeam = ref(null)
 const selectedGame = ref(null)
 const gameOptions = ref([])
@@ -102,33 +138,45 @@ const renderPlot = (gameData) => {
     gameData.opponent_stats['FT%']
   ]
   
+  const teamWon = gameData.team_stats.win === 1
+  const homeAway = gameData.team_stats.home === 1 ? 'vs' : '@'
+  const winner = teamWon ? gameData.team : gameData.opponent
+  
   const data = [
     {
-      name: gameData.team,
+      name: `${gameData.team}${teamWon ? '' : ''}`,
       x: categories,
       y: teamValues,
       text: teamValues.map(v => `${(v * 100).toFixed(1)}%`),
       textposition: 'auto',
-      type: 'bar'
+      type: 'bar',
+      marker: {
+        color: teamWon ? '#21BA45' : '#C10015'
+      }
     },
     {
-      name: gameData.opponent,
+      name: `${gameData.opponent}${!teamWon ? '' : ''}`,
       x: categories,
       y: opponentValues,
       text: opponentValues.map(v => `${(v * 100).toFixed(1)}%`),
       textposition: 'auto',
-      type: 'bar'
+      type: 'bar',
+      marker: {
+        color: !teamWon ? '#21BA45' : '#C10015'
+      }
     }
   ]
   
   const teamResult = gameData.team_stats.win === 1 ? 'W' : 'L'
   const opponentResult = gameData.opponent_stats.win === 1 ? 'W' : 'L'
-  const homeAway = gameData.team_stats.home === 1 ? 'vs' : '@'
   
   const layout = {
-    title: `Game Statistics - ${gameData.date}<br>` +
-           `${gameData.team} ${gameData.team_stats.points} ${homeAway} ${gameData.opponent} ${gameData.opponent_stats.points} ` +
-           `(${gameData.team}: ${teamResult}, ${gameData.opponent}: ${opponentResult})`,
+    title: {
+      text: `Game Statistics - ${gameData.date}<br>` +
+            `${gameData.team} ${gameData.team_stats.points} ${homeAway} ${gameData.opponent} ${gameData.opponent_stats.points}<br>` +
+            `<b style="color: #21BA45; font-size: 16px;">WINNER: ${winner}</b>`,
+      font: { size: 18 }
+    },
     xaxis: { title: 'Statistics' },
     yaxis: { title: 'Value', tickformat: '.0%' },
     barmode: 'group',
